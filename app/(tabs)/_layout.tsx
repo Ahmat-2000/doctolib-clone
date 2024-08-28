@@ -76,6 +76,7 @@ const NavBarLayout = () => {
          <Tabs.Screen key={id} name={item.route} options={{
            title: item.title,
            headerTitle: item.headerTitle,
+           headerStyle:{backgroundColor: primaryColor},
            tabBarIcon: ({ color, focused }) =>  {
             const border = {
                 borderTopWidth: focused ? 1 : 0,

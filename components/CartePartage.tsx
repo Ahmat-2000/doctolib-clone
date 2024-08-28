@@ -37,7 +37,9 @@ const styles : styleProp = StyleSheet.create({
     fontWeight : "bold",
   },
   description :{
-    fontSize: 16,
+    fontSize: 15,
     textAlign: 'center',
+    paddingHorizontal: 10,
+    maxWidth: 390
   },
 });

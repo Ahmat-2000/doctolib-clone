@@ -1,15 +1,15 @@
 import React from 'react';
 import { View } from 'react-native';
 import CartePartage from '../../components/CartePartage';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const Messages = () => {
   return (
     <View>
       <CartePartage 
-        title='Planifiez vos rendez-vous'
-        desciption='Trouver un professionnel de la santé et prenez rendez-vous en ligne à tout moment'
-        icon={<FontAwesome5 name="calendar-alt" size={80} color="gray" />}
+        title="Envoyez des demandes"
+        desciption="Vous pouvez envoyer à votre particien des demandes spécifiques, sur des resultats d'examen, des courriers d'adressages ou autres."
+        icon={<MaterialCommunityIcons name="email-newsletter" size={80} color="gray" />}
       />
     </View>
   )
