@@ -5,8 +5,8 @@ import { secondaryColor, primaryColor } from "../../components/colors";
 import { StyleSheet, Text, View } from 'react-native';
 
 // Define types for Ionicons and MaterialCommunityIcons icon names
-type IoniconNames = keyof typeof Ionicons.glyphMap;
-type MaterialCommunityIconNames = keyof typeof MaterialCommunityIcons.glyphMap;
+type IoniconNames = React.ComponentProps<typeof Ionicons>['name'];
+type MaterialCommunityIconNames = React.ComponentProps<typeof MaterialCommunityIcons>['name'];
 
 // Define types for Tab optionsConf
 type TabConfig = {

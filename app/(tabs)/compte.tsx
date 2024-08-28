@@ -1,10 +1,16 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native';
+import CartePartage from '../../components/CartePartage';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 const Compte = () => {
   return (
     <View>
-      <Text>Compte page</Text>
+      <CartePartage 
+        title='Planifiez vos rendez-vous'
+        desciption='Trouver un professionnel de la santé et prenez rendez-vous en ligne à tout moment'
+        icon={<FontAwesome5 name="calendar-alt" size={80} color="gray" />}
+      />
     </View>
   )
 }
