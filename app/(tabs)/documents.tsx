@@ -1,15 +1,14 @@
 import React from 'react'
 import { View } from 'react-native';
 import CartePartage from '../../components/CartePartage';
-import Ionicons from '@expo/vector-icons/Ionicons';
-
+import DocumentSvg from '../../assets/svgComponents/DocumentSvg';
 const Documents = () => {
   return (
     <View>
       <CartePartage 
         title="Gérez vos documents"
-        desciption="Conservez tous vos documents de santé dans un endroit sécurisé. Partagez-les avec vos particiens lors de la prise de rendez-vous."
-        icon={<Ionicons name="documents" size={80} color="gray" />}
+        description="Conservez tous vos documents de santé dans un endroit sécurisé. Partagez-les avec vos praticiens lors de la prise de rendez-vous."
+        icon={<DocumentSvg width={80} height={80}/>} 
       />
     </View>
   )

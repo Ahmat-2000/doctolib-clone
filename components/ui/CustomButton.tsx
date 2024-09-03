@@ -1,6 +1,7 @@
-import { View, Text, Pressable, StyleSheet, TextStyle, ViewStyle, Animated } from 'react-native';
-import React, { useRef, useState } from 'react';
-import { primaryColor } from './colors';
+import { Text, Pressable, StyleSheet, TextStyle, ViewStyle, Animated } from 'react-native';
+import React from 'react';
+import { primaryColor } from '../colors';
+import useOpacityAnimation from '../custom-hook/useOpacityAnimation';
 
 type buttonPropsType = {
   title: string,
@@ -14,33 +15,19 @@ type buttonPropsType = {
   textStyle ?: TextStyle ,
 };
 
-type styleProp = {
+type styleType = {
   button : ViewStyle,
   text : TextStyle,
 };
 
 
 export default function CustomButton(props : buttonPropsType) {
-  
-  const opacityValue = useRef(new Animated.Value(1)).current; // Initial opacity value of 1
-  
+  const {opacityValue, startAnimation } = useOpacityAnimation({startOpacity: 1, endOpacity: 0.75});
   const defaultPress = () => {};
-
-  const defaultOnPressIn = () => {
-    Animated.timing(opacityValue, {
-      toValue: 0.7, // Target opacity
-      duration: 500, // Duration of the animation
-      useNativeDriver: true,
-    }).start(() => Animated.timing(opacityValue, {
-      toValue: 1, // Return to full opacity
-      duration: 500, // Duration of the animation
-      useNativeDriver: true,
-    }).start());
-  };
 
   return (
     <Pressable 
-      onPressIn={props.onPressIn || defaultOnPressIn} 
+      onPressIn={props.onPressIn || startAnimation} 
       onPressOut={props.onPressOut || defaultPress} 
       onPress={props.onPress || defaultPress} 
       onLongPress={props.onLongPress || defaultPress }
@@ -62,7 +49,7 @@ export default function CustomButton(props : buttonPropsType) {
   )
 };
 
-const styles : styleProp = StyleSheet.create({
+const styles : styleType = StyleSheet.create({
   button : {
     alignItems: 'center',
     borderRadius: 10,

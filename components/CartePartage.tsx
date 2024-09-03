@@ -1,45 +1,41 @@
 import React from 'react';
 import { View, Text, StyleSheet, ViewStyle, TextStyle,  } from 'react-native';
-import CustomButton from './CustomButton';
+import CustomButton from './ui/CustomButton';
+import Paragraph from './ui/Paragraph';
+import Title from './ui/Title';
 
 type propsType = {
   title : string,
-  desciption : string,
+  description : string,
   icon: React.JSX.Element
 };
 type styleProp = {
   container : ViewStyle,
-  title : TextStyle,
   description : TextStyle,
 };
 
-export default function CartePartage({title, desciption, icon} : propsType) {
+export default function CartePartage({title, description, icon} : propsType) {
   const btnPress = () => {};
   return (
     <View style={styles.container}>
       <View>{icon}</View>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{desciption}</Text>
+      <Title text={title} variant="h2" />   
+      <Paragraph styles={styles.description} text={description} />   
       <CustomButton title='se connecter' onPress={btnPress} />
     </View>
   )
 };
 const styles : styleProp = StyleSheet.create({
   container : {
-    width: "100%",
     height: "100%",
     alignItems: 'center',
     justifyContent: 'center',
     rowGap: 15,
-  },
-  title : {
-    fontSize: 20,
-    fontWeight : "bold",
+    padding: 10
   },
   description :{
-    fontSize: 15,
     textAlign: 'center',
     paddingHorizontal: 10,
-    maxWidth: 390
+    fontSize: 15
   },
 });

@@ -6,7 +6,7 @@ import { primaryColor } from '../components/colors';
 const RootLayout = () => {
   return (
     <>
-    <StatusBar backgroundColor={primaryColor} />
+    <StatusBar backgroundColor={primaryColor} barStyle='light-content' />
     <Stack>
       <Stack.Screen 
         name='(tabs)' 
