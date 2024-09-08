@@ -1,53 +1,24 @@
-import React from 'react';
-import { Image, ImageStyle, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import React, { useState } from 'react';
+import { Image, ImageStyle, Pressable, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import AntDesign from '@expo/vector-icons/AntDesign';
-
 import CustomButton from '../../components/ui/CustomButton';
 import { primaryColor, skyBlueColor, textBlueColor } from '../../components/colors';
 import Paragraph from '../../components/ui/Paragraph';
 import Title from '../../components/ui/Title';
 import CustomLink from '../../components/ui/CustomLink';
 import TextSeparator from '../../components/ui/TextSeparator';
+import { globalStyles } from '../../components/styles';
+import ParametreRow from '../../components/connexion/ParametreRow';
+import ConfidentialityRow from '../../components/connexion/ConfidentialityRow';
+import BottomSheet from '../../components/ui/BottomSheet';
+import BottomSheetBody from '../../components/connexion/BottomSheetBody';
 
-type ParamPropType = {
-  icon: React.JSX.Element;
-  title: string;
-  description: string;
-};
-
-const ParametreRow: React.FC<ParamPropType> = ({ icon, title, description }) => (
-  <>
-    <TextSeparator />
-    <View style={[styles.container, styles.parametreRow]}>
-      <View style={styles.parametreRow}>
-        {icon}
-        <View style={styles.parametreText}>
-          <Title text={title} variant="h6" />
-          <Paragraph text={description} styles={styles.descriptionText} />
-        </View>
-      </View>
-      <AntDesign name="right" size={15} color="black" style={styles.rightIcon} />
-    </View>
-  </>
-);
-
-type ConfPropType = {
-  description: string;
-};
-
-const ConfidentialityRow: React.FC<ConfPropType> = ({ description }) => (
-  <>
-    <TextSeparator />
-    <View style={[styles.container, styles.parametreRow]}>
-      <Paragraph text={description} />
-      <AntDesign name="right" size={15} color="black" />
-    </View>
-  </>
-);
-
-const Compte: React.FC = (): React.JSX.Element => (
+const Compte: React.FC = (): React.JSX.Element => {
+  const [showPaysModal, setShowPaysModal] = useState<boolean>(false);
+  const [showLangModal, setShowLangModal] = useState<boolean>(false);
+  
+  return(
   <View style={styles.mainContainer}>
     <View style={[styles.container, styles.sectionContainer]}>
       <View style={styles.carteContainer}>
@@ -60,22 +31,29 @@ const Compte: React.FC = (): React.JSX.Element => (
 
       <View style={styles.linkRow}>
         <Paragraph text="Vous n'avez pas de compte ? " />
-        <CustomLink bgColor={skyBlueColor} />
+        <CustomLink containerBgColor={skyBlueColor} url="">
+          <Paragraph text="S'inscrire" styles={globalStyles.defaultLinkText}/>
+        </CustomLink>
       </View>
     </View>
 
     <View>
       <Title variant="h5" text="Paramètres" styles={styles.rowTitle} />
-      <ParametreRow
-        title="Pays"
-        description="Pays où vous avez besoin de soins"
-        icon={<FontAwesome5 name="globe-africa" size={24} color={primaryColor} style={styles.leftIcon} />}
-      />
-      <ParametreRow
-        title="Langue"
-        description="Langue du compte"
-        icon={<FontAwesome name="comment" size={24} color={primaryColor} style={styles.leftIcon} />}
-      />
+      <Pressable onPress={() => setShowPaysModal(true)}>
+        <ParametreRow
+          title="Pays"
+          description="Pays où vous avez besoin de soins"
+          icon={<FontAwesome5 name="globe-africa" size={24} color={primaryColor} style={styles.leftIcon} />}
+        />
+      </Pressable>
+
+      <Pressable onPress={() => setShowLangModal(true)}>
+        <ParametreRow
+          title="Langue"
+          description="Langue du compte"
+          icon={<FontAwesome name="comment" size={24} color={primaryColor} style={styles.leftIcon} />}
+        />
+      </Pressable>
     </View>
 
     <TextSeparator />
@@ -87,8 +65,12 @@ const Compte: React.FC = (): React.JSX.Element => (
       <TextSeparator />
       <Paragraph text="v1.0.0" styles={styles.version} />
     </View>
+
+    {showPaysModal && <BottomSheet slideTime={300} height='50%' title="Pays" isVisible={showPaysModal} setIsVisible={setShowPaysModal}> 
+      <BottomSheetBody description="choisissez le pays dans lequel vous souhaitez trouver des particiens et prendre des rendez-vous : "  listOfChoices={["Allemagne","France", "Italie"]}/>  
+    </BottomSheet>}
   </View>
-);
+)};
 
 type StyleType = {
   mainContainer: ViewStyle;
@@ -96,14 +78,10 @@ type StyleType = {
   sectionContainer: ViewStyle;
   carteContainer: ViewStyle;
   carteTileContainer: ViewStyle;
-  parametreRow: ViewStyle;
-  parametreText: ViewStyle;
-  rightIcon: ViewStyle;
   leftIcon: ViewStyle;
   carteTitleImage: ImageStyle;
   carteTitleText: TextStyle;
   rowTitle: TextStyle;
-  descriptionText: TextStyle;
   version: TextStyle;
   linkRow: ViewStyle;
   confidentialityContainer: ViewStyle;
@@ -135,17 +113,6 @@ const styles: StyleType = StyleSheet.create({
     width: 60,
     height: 60,
   },
-  parametreRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    columnGap: 10,
-  },
-  parametreText: {
-    justifyContent: 'center',
-    rowGap: 2,
-  },
-  rightIcon: {},
   leftIcon: {
     alignSelf: 'flex-start',
   },
@@ -153,9 +120,6 @@ const styles: StyleType = StyleSheet.create({
     color: textBlueColor,
     marginBottom: 10,
     paddingHorizontal: 15,
-  },
-  descriptionText: {
-    color: textBlueColor,
   },
   version: {
     textAlign: 'center',

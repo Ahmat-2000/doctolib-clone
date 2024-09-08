@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, View } from 'react-native';
 import CartePartage from '../../components/CartePartage';
-import { imageBaseStyle } from '../../components/styles';
+import { globalStyles } from '../../components/styles';
 
 const Messages = () => {
   return (
@@ -13,7 +13,7 @@ const Messages = () => {
         <Image 
           source={require("../../assets/message.png")} 
           alt='icône de message'
-          style={imageBaseStyle.image}
+          style={globalStyles.cartePartageImage}
         />}
       />
     </View>
