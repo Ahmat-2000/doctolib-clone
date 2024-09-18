@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { Image, ImageStyle, Pressable, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -7,17 +7,16 @@ import { primaryColor, skyBlueColor, textBlueColor } from '../../components/colo
 import Paragraph from '../../components/ui/Paragraph';
 import Title from '../../components/ui/Title';
 import CustomLink from '../../components/ui/CustomLink';
-import TextSeparator from '../../components/ui/TextSeparator';
 import { globalStyles } from '../../components/styles';
 import ParametreRow from '../../components/connexion/ParametreRow';
 import ConfidentialityRow from '../../components/connexion/ConfidentialityRow';
-import BottomSheet from '../../components/ui/BottomSheet';
+import BottomSheet, { BottomSheetRefType } from '../../components/ui/BottomSheet';
 import BottomSheetBody from '../../components/connexion/BottomSheetBody';
 
+
 const Compte: React.FC = (): React.JSX.Element => {
-  const [showPaysModal, setShowPaysModal] = useState<boolean>(false);
-  const [showLangModal, setShowLangModal] = useState<boolean>(false);
-  
+  const bottomSheetRef = useRef<BottomSheetRefType | null>(null);
+  const bottomSheetLangRef = useRef<BottomSheetRefType | null>(null);
   return(
   <View style={styles.mainContainer}>
     <View style={[styles.container, styles.sectionContainer]}>
@@ -38,37 +37,41 @@ const Compte: React.FC = (): React.JSX.Element => {
     </View>
 
     <View>
-      <Title variant="h5" text="Paramètres" styles={styles.rowTitle} />
-      <Pressable onPress={() => setShowPaysModal(true)}>
+      <Title variant="h6" text="Paramètres" styles={styles.rowTitle} />
+      <Pressable onPress={() => {bottomSheetRef.current?.openModal()}}>
         <ParametreRow
           title="Pays"
           description="Pays où vous avez besoin de soins"
-          icon={<FontAwesome5 name="globe-africa" size={24} color={primaryColor} style={styles.leftIcon} />}
+          style={{borderTopWidth: 0.5}}
+          icon={<FontAwesome5 name="globe-africa" size={20} color={primaryColor} style={styles.leftIcon} />}
         />
       </Pressable>
 
-      <Pressable onPress={() => setShowLangModal(true)}>
+      <Pressable onPress={() => {bottomSheetLangRef.current?.openModal()}}>
         <ParametreRow
           title="Langue"
           description="Langue du compte"
-          icon={<FontAwesome name="comment" size={24} color={primaryColor} style={styles.leftIcon} />}
+          icon={<FontAwesome name="comment" size={20} color={primaryColor} style={styles.leftIcon} />}
         />
       </Pressable>
     </View>
 
-    <TextSeparator />
-
     <View style={styles.confidentialityContainer}>
-      <Title variant="h5" text="Confidentialité" styles={styles.rowTitle} />
-      <ConfidentialityRow description="Mes préférences" />
+      <Title variant="h6" text="Confidentialité" styles={{...styles.rowTitle,paddingTop: 10}} />
+      <ConfidentialityRow description="Mes préférences" style={{borderTopWidth: 0.5}}/>
       <ConfidentialityRow description="Informations légales" />
-      <TextSeparator />
       <Paragraph text="v1.0.0" styles={styles.version} />
     </View>
 
-    {showPaysModal && <BottomSheet slideTime={300} height='50%' title="Pays" isVisible={showPaysModal} setIsVisible={setShowPaysModal}> 
+    {/* Country bottomSheet */}
+    <BottomSheet slideTime={500} height='50%' title="Pays" ref={bottomSheetRef}> 
       <BottomSheetBody description="choisissez le pays dans lequel vous souhaitez trouver des particiens et prendre des rendez-vous : "  listOfChoices={["Allemagne","France", "Italie"]}/>  
-    </BottomSheet>}
+    </BottomSheet>
+
+    {/* Language bottomSheet */}
+    <BottomSheet slideTime={500} height='55%' title="Lange" ref={bottomSheetLangRef}> 
+      <BottomSheetBody description="choisissez la langue dans laquelle vous souhaitez utiliser Doctolib : "  listOfChoices={["Anglais","Français", "Arabe","Hawsa"]}/>  
+    </BottomSheet>
   </View>
 )};
 

@@ -80,7 +80,7 @@ const NavBarLayout = () => {
         tabBarActiveTintColor: primaryColor,
         tabBarInactiveTintColor: secondaryColor,
         tabBarStyle: {
-          height: 70,
+          height: 80,
         },
       }}
     >

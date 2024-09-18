@@ -2,20 +2,19 @@ import { StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import React from 'react';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
-import TextSeparator from '../ui/TextSeparator';
 import Paragraph from '../ui/Paragraph';
 import Title from '../ui/Title';
-import { textBlueColor } from '../colors';
+import { secondaryColor, textBlueColor } from '../colors';
 
 type ParamPropType = {
   icon: React.JSX.Element;
   title: string;
   description: string;
+  style? : ViewStyle
 };
-const ParametreRow: React.FC<ParamPropType> = ({ icon, title, description }) => (
+const ParametreRow: React.FC<ParamPropType> = ({ icon, title, description, style }) => (
   <>
-    <TextSeparator />
-    <View style={[styles.container, styles.parametreRow]}>
+    <View style={[styles.container, styles.parametreRow, style ]}>
       <View style={styles.parametreRow}>
         {icon}
         <View style={styles.parametreText}>
@@ -42,6 +41,8 @@ const styles: StyleType = StyleSheet.create({
 
   container: {
     padding: 15,
+    borderColor: secondaryColor,
+    borderBottomWidth: 0.5,
   },
   parametreRow: {
     flexDirection: 'row',

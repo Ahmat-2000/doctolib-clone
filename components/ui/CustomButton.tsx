@@ -52,7 +52,7 @@ export default function CustomButton(props : buttonPropsType) {
 const styles : styleType = StyleSheet.create({
   button : {
     alignItems: 'center',
-    borderRadius: 10,
+    borderRadius: 8,
     paddingHorizontal: 15,
     paddingVertical: 10,
   },
